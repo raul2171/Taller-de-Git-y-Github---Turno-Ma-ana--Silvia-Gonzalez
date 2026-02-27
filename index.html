@@ -3,190 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="script" href="script.js">
   <title>AutoNova — Tu próximo auto te espera</title>
+  <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+  <link rel="stylesheet" href="styles.css" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      line-height: 1.6;
-      color: #222;
-    }
-
-    header {
-      background: #0f172a;
-      color: white;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav h1 {
-      font-size: 1.5rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 1.2rem;
-      font-size: 0.95rem;
-    }
-
-    .hero {
-      height: 90vh;
-      background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
-        url("https://images.unsplash.com/photo-1493238792000-8113da705763") center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      padding: 2rem;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      background: #e11d48;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #be123c;
-    }
-
-    section {
-      padding: 4rem 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      font-size: 2rem;
-    }
-
-    .cars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .car-card {
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      background: white;
-      transition: transform 0.3s;
-    }
-
-    .car-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .car-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .car-info {
-      padding: 1rem;
-    }
-
-    .price {
-      color: #e11d48;
-      font-weight: bold;
-      margin-top: 0.5rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      text-align: center;
-    }
-
-    .feature-box {
-      padding: 2rem;
-      border-radius: 10px;
-      background: #f8fafc;
-    }
-
-    form {
-      display: grid;
-      gap: 1rem;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    input, textarea {
-      padding: 0.8rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-
-    footer {
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #16a34a;
-      color: white;
-      padding: 1rem;
-      border-radius: 6px;
-      opacity: 0;
-      transition: 0.3s;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-  </style>
 </head>
 
 <body>
 
 <header>
   <nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <h1>🚗 AutoNova</h1>
-    <div>
+    <div class="nav-links">
       <a href="#autos">Autos</a>
-      <a href="#beneficios">Beneficios</a>
+      <a href="#beneficios">Reseñas</a>
       <a href="#contacto">Contacto</a>
     </div>
   </nav>
 </header>
+
+<div id="overlay" onclick="closeMenu()"></div>
 
 <section class="hero">
   <div>
@@ -202,65 +41,140 @@
 
   <div class="cars">
     <div class="car-card">
-      <img src="/img/joshua-koblin-eqW1MPinEV4-unsplash.jpg" />
+      <img src="/img/joshua-koblin-eqW1MPinEV4-unsplash.jpg" alt="1"/>
       <div class="car-info">
         <h4>Sedan LX 2025</h4>
         <p>Elegancia, confort y tecnología.</p>
         <div class="price">USD 24.900</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido el Sedan LX 2025!')">Comprar</button>
       </div>
     </div>
 
     <div class="car-card">
-      <img src="/img/olav-tvedt-6lSBynPRaAQ-unsplash.jpg" />
+      <img src="/img/olav-tvedt-6lSBynPRaAQ-unsplash.jpg" alt="2"/>
       <div class="car-info">
         <h4>SUV Urban X</h4>
         <p>Potencia y espacio para toda la familia.</p>
         <div class="price">USD 31.500</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido el SUV Urban X!')">Comprar</button>
       </div>
     </div>
 
     <div class="car-card">
-      <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a" />
+      <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a" alt="3"/>
       <div class="car-info">
         <h4>Sport GT</h4>
-        <p>Rendimiento y diseño deportivo.</p>
+        <p>Rendimiento y diseño deportivo. </p>
         <div class="price">USD 39.900</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido el Sport GT!')">Comprar</button>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <img src="/img/aaron-huber-8qYE6LGHW-c-unsplash.jpg" />
+      <div class="car-info">
+        <h4>Eco Compact</h4>
+        <p>Eficiencia y tamaño ideal para la ciudad.</p>
+        <div class="price">USD 18.700</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido el Eco Compact!')">Comprar</button>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <img src="/img/hakon-sataoen-qyfco1nfMtg-unsplash.jpg" />
+      <div class="car-info">
+        <h4>Pickup Pro</h4>
+        <p>Fuerza y capacidad para el trabajo pesado.</p>
+        <div class="price">USD 34.200</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido la Pickup Pro!')">Comprar</button>
+      </div>
+    </div>
+
+    <div class="car-card">
+      <img src="/img/stefan-rodriguez-2AovfzYV3rc-unsplash.jpg" />
+      <div class="car-info">
+        <h4>Coupé Elegance</h4>
+        <p>Estilo y lujo en cada detalle.</p>
+        <div class="price">USD 44.800</div>
+        <button class="btn buy-btn" onclick="showToast('¡Has elegido la Coupé Elegance!')">Comprar</button>
+      </div>
+    </div>
+    
+    <!-- Card para solicitar consulta con representante en línea -->
+    <div class="car-card">
+      <img src="https://via.placeholder.com/400x180?text=Representante+En+L%C3%ADnea" />
+      <div class="car-info">
+        <h4>Consulta en línea</h4>
+        <p>Habla con un representante ahora mismo.</p>
+        <button class="btn" onclick="showToast('¡Solicitud de consulta enviada!')">Solicitar consulta</button>
       </div>
     </div>
   </div>
 </section>
 
 <section id="beneficios">
-  <h3 class="section-title">¿Por qué elegirnos?</h3>
+  <h3 class="section-title">Donde la experiencia se convierte en confianza</h3>
 
   <div class="features">
-    <div class="feature-box">
-      <h4>Financiación flexible</h4>
-      <p>Planes adaptados a tu presupuesto.</p>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img class="profile-pic" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100&q=80" alt="Foto de Juan Pérez">
+          <h4>Juan Pérez</h4>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="flip-card-back">
+          <p>"La verdad es que me sorprendió lo fácil que fue financiar el auto. Las tasas son geniales y el proceso fue super rápido. ¡Recomiendo 100%!"</p>
+        </div>
+      </div>
     </div>
 
-    <div class="feature-box">
-      <h4>Garantía oficial</h4>
-      <p>Respaldo total en tu compra.</p>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img class="profile-pic" src="https://www.okchicas.com/wp-content/uploads/2018/01/Poses-para-una-buena-foto-de-perfil-15-1.jpg" alt="Foto de María García">
+          <h4>María García</h4>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="flip-card-back">
+          <p>"Wow, en serio, entregaron el auto en 3 días. Pensé que tardaría más, pero no. El equipo es increíble, muy atentos."</p>
+        </div>
+      </div>
     </div>
 
-    <div class="feature-box">
-      <h4>Entrega rápida</h4>
-      <p>Salí manejando en pocos días.</p>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img class="profile-pic" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100&q=80" alt="Foto de Carlos López">
+          <h4>Carlos López</h4>
+          <div class="stars">★★★★☆</div>
+        </div>
+        <div class="flip-card-back">
+          <p>"La garantía me da tranquilidad total. Al principio tuve que esperar un poco, pero la atención al cliente fue top. Vale la pena."</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="contacto">
-  <h3 class="section-title">Contactanos</h3>
-
-  <form id="contactForm">
-    <input type="text" placeholder="Nombre" required />
-    <input type="email" placeholder="Email" required />
-    <textarea placeholder="¿Qué auto te interesa?" rows="4" required></textarea>
-    <button class="btn" type="submit">Enviar consulta</button>
-  </form>
-</section>
+<grid class="pre-footer">
+  <section id="contacto">
+    <h3 class="section-title">Contactanos</h3>
+  
+    <form id="contactForm">
+      <input type="text" placeholder="Nombre" required />
+      <input type="email" placeholder="Email" required />
+      <textarea placeholder="¿Qué auto te interesa?" rows="4" required></textarea>
+      <button class="btn" type="submit">Enviar consulta</button>
+    </form>
+  </section>
+  <section id="video">
+    <h3 class="section-title">Conocé más sobre AutoNova</h3>
+    <div class="video-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+</grid>
 
 <footer>
   © 2026 AutoNova — Todos los derechos reservados
@@ -268,11 +182,24 @@
 
 <div id="toast" class="toast">Mensaje enviado correctamente 🚀</div>
 
+<script src="script.js"></script>
+
+<button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
 <script>
   function scrollToContact() {
     document.getElementById("contacto").scrollIntoView({
       behavior: "smooth"
     });
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+      toast.textContent = "Mensaje enviado correctamente 🚀";
+    }, 2000);
   }
 
   const form = document.getElementById("contactForm");
@@ -281,6 +208,7 @@
   form.addEventListener("submit", function(e) {
     e.preventDefault();
 
+    toast.textContent = "Mensaje enviado correctamente 🚀";
     toast.classList.add("show");
 
     setTimeout(() => {
